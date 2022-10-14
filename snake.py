@@ -29,20 +29,38 @@ class Snake:
 
     def move(self):
         game_is_on = True
+        i = 1
         while game_is_on:
             screen.update()
-            time.sleep(0.2)
+            
 
             for seg_num in range(len(self.segments) - 1, 0, -1):
                 new_x = self.segments[seg_num - 1].xcor()
                 new_y = self.segments[seg_num - 1].ycor()
                 self.segments[seg_num].goto(new_x, new_y)
+                if len(self.segments) - 1 == seg_num:
+                  self.segments[seg_num].st()
+                
+              
             self.head.forward(20)
+            if i % 10 == 0:
+              self.add_snake()
+            i = i + 1
+            if i>3:
+              if self.touching():
+                print("touching")
+                return True
+              else:
+                return False
+     
     def add_snake(self):
+        
         new_segment = t("square")
+        new_segment.ht()
         new_segment.penup()
-        new_segment.color("white")
+        new_segment.color('white')
         self.segments.append(new_segment)
+     
     def up(self):
         if self.head.heading() != DOWN:
             self.head.setheading(UP)
@@ -55,3 +73,13 @@ class Snake:
     def right(self):
         if self.head.heading() != LEFT:
             self.head.setheading(RIGHT)
+      
+    def touching(self):
+      i = 1 
+      while i < len(self.segments):
+        if(self.head.xcor() == self.segments[i].xcor()) and (self.head.xcor() == self.segments[i].xcor()):
+          return True
+        else: 
+          return False
+          
+        
