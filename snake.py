@@ -21,6 +21,7 @@ class Snake:
     def create_snake(self):
         for position in self.START_POS:
             new_segment = t("square")
+            new_segment.speed("fastest")
             new_segment.penup()
             new_segment.color("white")
             new_segment.goto(position)
@@ -31,18 +32,20 @@ class Snake:
         game_is_on = True
 
         screen.update()
-        time.sleep(0.2)
         for seg_num in range(len(self.segments) - 1, 0, -1):
             new_x = self.segments[seg_num - 1].xcor()
             new_y = self.segments[seg_num - 1].ycor()
             self.segments[seg_num].goto(new_x, new_y)
+            self.segments[seg_num].st()
         self.head.forward(20)
 
-    def add_snake(self):
+    def add_snake(self, positon):
         new_segment = t("square")
+        new_segment.goto(position)
         new_segment.penup()
         new_segment.color("white")
         self.segments.append(new_segment)
+
     def up(self):
         if self.head.heading() != DOWN:
             self.head.setheading(UP)
